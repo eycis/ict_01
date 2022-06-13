@@ -53,10 +53,12 @@ var result04 = numbers.Count(n => n % 2 == 0);
 Console.WriteLine(result03);
 Console.WriteLine(result04);
 
+var numbers01 = new[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 var strings = new[] { "zero", "one", "two", "three",
     "four", "five", "six", "seven", "eight", "nine" };
 
-var result_tostring = numbers.
+var result_string = numbers01.Select(n => strings[n]);
+Console.WriteLine(string.Join(", ", result_string));
 
 
 
