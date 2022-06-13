@@ -4,13 +4,27 @@
     {
         public static Dictionary<string, int> FreqAnalysisFromString(string input)
         {
-            throw new NotImplementedException();
+            Dictionary<string, int> result = new Dictionary<string, int>();
+            var words = input.Split(new string[] { " ", ".", ",", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var word in words)
+            {
+                if (result.ContainsKey(word))
+                {
+                    result[word]++;
+                }
+                else
+                {
+                    result.Add(word, 1);
+                }
+            }
+            return result;
         }
 
         public static async Task<Dictionary<string, int>> FreqAnalysisFromUrl(string url)
         {
             //get content from url
-            HttpClient httpClient = new ();
+            HttpClient httpClient = new HttpClient();
             var content = await httpClient.GetStringAsync(url);
 
             return FreqAnalysisFromString(content);
