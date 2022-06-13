@@ -5,7 +5,13 @@
         public static Dictionary<string, int> FreqAnalysisFromString(string input)
         {
             Dictionary<string, int> result = new Dictionary<string, int>();
-            var words = input.Split(new string[] { " ", ".", ",", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            var words = input.Replace(Environment.NewLine, " ")
+                             .Replace("(", "")
+                             .Replace(")", "")
+                             .Replace(".", "")
+                             .Replace(",", " ")
+                             .Replace(":", " ")
+                             .Split();
 
             foreach (var word in words)
             {

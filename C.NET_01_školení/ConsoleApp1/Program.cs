@@ -1,16 +1,28 @@
-﻿
+﻿using Data;
 using model;
 
 Console.WriteLine("Hello, World!");
+//nalezení cesty k souborům
+var booksdir = @"C:\Users\marie\source\repos\NewRepo\C.NET_01_školení\books";
+//načtení všech textových souborů
+var files = Directory.EnumerateFiles(booksdir, "*.txt");
 
-FAResult fAResult = new FAResult()
+foreach (var file in files)
 {
-    Source = "file",
-    SourceType = SourceType.FILE
-};
+    var result = FreqAnalysis.FreqAnalysisFromFile(file);
 
-Console.WriteLine(fAResult);
+    var fileInfo = new FileInfo(file);
+    Console.WriteLine(fileInfo.Name);
 
-fAResult.Words = new Dictionary<string, int>();
+    //tisk deseti nejčastějších slov:
+    var ordered = result.OrderByDescending(kv => kv.Value).Take(10);
+    //pomocí linq může využít metodu orderbydescending, která dokáže seřadit result podle počtu výskytů. 
+    //následně metoda take vezme prvních deset.
 
-Console.WriteLine(fAResult);
+
+    //metoda pro výpis
+    foreach (var item in ordered)
+    {
+        Console.WriteLine($"{item.Key} - {item.Value}");
+    }
+}
