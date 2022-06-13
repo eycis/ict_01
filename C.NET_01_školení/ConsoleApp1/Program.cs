@@ -33,6 +33,13 @@ int[] numbers = { 11, 2, 13, 44, -5, 6, 127, -99, 0, 256};
 //}
 
 
+//todo- počet kladných čísel 
+var result = numbers.Where(n => n > 0);
+Console.WriteLine(result.Count());
+
+//todo - ignorujte nejvetsi a nejmensi cislo a ze zbytku prumer
+var result02 = numbers.
+
 static void FreqWords()
 {
     //nalezení cesty k souborům
