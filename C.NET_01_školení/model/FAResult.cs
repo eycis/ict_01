@@ -5,6 +5,7 @@
     /// </summary>
     public class FAResult
     {
+
         /// <summary>
         /// zdroj textu 
         /// </summary>
@@ -14,7 +15,7 @@
         /// <summary>
         /// výsledná frekvenční analýza slov
         /// </summary>
-        public Dictionary<string, int> Words { get; set; }
+        public Dictionary<string, int> Words { get; set; } = new Dictionary<string, int>();
 
         public override string ToString()
         {
