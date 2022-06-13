@@ -38,7 +38,27 @@ var result = numbers.Where(n => n > 0);
 Console.WriteLine(result.Count());
 
 //todo - ignorujte nejvetsi a nejmensi cislo a ze zbytku prumer
-var result02 = numbers.
+var result02 = numbers.OrderBy(n => n).Skip(1).SkipLast(1).Average();
+Console.WriteLine(result02);
+
+//kolik je sudých a lichých čísel
+var experiment = numbers.Where(n => n % 2 == 0).Count();
+Console.WriteLine("exp:"+experiment);
+var experiment2 = numbers.Where(n => n % 2 == 1).Count();
+Console.WriteLine("exp:" + experiment2);
+Console.WriteLine("----------------");
+
+var result03 = numbers.Count(n => n % 2 == 1);
+var result04 = numbers.Count(n => n % 2 == 0);
+Console.WriteLine(result03);
+Console.WriteLine(result04);
+
+var strings = new[] { "zero", "one", "two", "three",
+    "four", "five", "six", "seven", "eight", "nine" };
+
+var result_tostring = numbers.
+
+
 
 static void FreqWords()
 {
