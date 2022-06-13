@@ -15,7 +15,7 @@ foreach (var file in files)
     Console.WriteLine(fileInfo.Name);
 
     //tisk deseti nejčastějších slov:
-    var ordered = result.OrderByDescending(kv => kv.Value).Take(10);
+    var ordered = result.Words.OrderByDescending(kv => kv.Value).Take(10);
     //pomocí linq může využít metodu orderbydescending, která dokáže seřadit result podle počtu výskytů. 
     //následně metoda take vezme prvních deset.
 
@@ -23,6 +23,6 @@ foreach (var file in files)
     //metoda pro výpis
     foreach (var item in ordered)
     {
-        Console.WriteLine($"{item.Key} - {item.Value}");
+        Console.WriteLine($"{item.Key}\t{item.Value}");
     }
 }
