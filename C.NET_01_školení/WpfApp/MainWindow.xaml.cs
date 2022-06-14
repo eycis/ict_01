@@ -35,7 +35,12 @@ namespace WpfApp
             foreach (var file in files)
             {
                 var result = FreqAnalysis.FreqAnalysisFromFile(file);
-                txtInfo.Text += result.Source;
+                txtInfo.Text += result.Source + Environment.NewLine;
+
+                foreach (var word in result.GetTop10())
+                {
+                    txtInfo.Text += $"{word.Key}:{word.Value} {Environment.NewLine}";
+                }
             }
         }
     }
