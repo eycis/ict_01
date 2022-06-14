@@ -7,19 +7,14 @@ namespace Data
         public static Dictionary<string, int> FreqAnalysisFromString(string input)
         {
             Dictionary<string, int> result = new Dictionary<string, int>();
-            var words = input.Replace(Environment.NewLine, " ")
-                             .Replace("(", "")
-                             .Replace(")", "")
-                             .Replace(".", "")
-                             .Replace(",", " ")
-                             .Replace(":", " ")
-                             .Split();
+            
+            var words = input.Split(Environment.NewLine);
 
             foreach (var word in words)
             {
                 if (result.ContainsKey(word))
                 {
-                    result[word]++;
+                    result[word]+=1;
                 }
                 else
                 {

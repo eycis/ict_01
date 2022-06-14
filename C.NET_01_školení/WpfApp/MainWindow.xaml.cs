@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +29,14 @@ namespace WpfApp
 
         private void btnLoadFiles_Click(object sender, RoutedEventArgs e)
         {
-            txtInfo.Text = "Načítám soubory...";
+            txtInfo.Text = "";
+
+            var files = Directory.EnumerateFiles(@"C:\Users\marie\source\repos\NewRepo\C.NET_01_školení\BIG");
+            foreach (var file in files)
+            {
+                var result = FreqAnalysis.FreqAnalysisFromFile(file);
+                txtInfo.Text += result.Source;
+            }
         }
     }
 }
