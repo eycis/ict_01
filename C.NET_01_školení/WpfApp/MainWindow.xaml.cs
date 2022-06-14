@@ -174,10 +174,45 @@ namespace WpfApp
             var t2 = Task.Run(() => WebLoad.LoadUrl(url2));
             var t3 = Task.Run(() => WebLoad.LoadUrl(url3));
 
-            int[] results = await Task.WhenAll(t1, t2, t3);
+            var results = await Task.WhenAll(t1, t2, t3);
 
 
             txtInfo.Text += $"tasky jsou hotové, jejich web lenght je {string.Join(",",results)}";
+
+            s.Stop();
+            txtInfo.Text += $"{Environment.NewLine} elapsed milliseconds: {s.ElapsedMilliseconds}";
+            Mouse.OverrideCursor = null;
+        }
+
+        private async void btnWhenAllProgress_Click(object sender, RoutedEventArgs e)
+        {
+            Mouse.OverrideCursor = Cursors.Wait;
+            Stopwatch s = Stopwatch.StartNew();
+            txtInfo.Text = "";
+
+            IProgress<string> progress = new Progress<string>(message =>
+            {
+                txtInfo.Text += message + Environment.NewLine;
+            });
+
+            string[] urls = {"https://seznam.cz",
+            "https://seznamzpravy.cz",
+            "https://www.ictpro.cz/",
+            "https://www.google.com/",
+            "https://www.bbc.co.uk/",
+            "https://novinky.cz/",
+            "https://lidovky.cz/" };
+
+            List<Task<(int?, string, bool)>> tasks = new List<Task<(int?, string, bool)>>();
+            foreach (string url in urls)
+            {
+                tasks.Add(Task.Run(() => WebLoad.LoadUrl(url, progress)));
+            }
+
+            var results = await Task.WhenAll(tasks);
+
+
+            //txtInfo.Text += $"tasky jsou hotové, jejich web lenght je {string.Join(",", results)}";
 
             s.Stop();
             txtInfo.Text += $"{Environment.NewLine} elapsed milliseconds: {s.ElapsedMilliseconds}";

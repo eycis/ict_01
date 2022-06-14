@@ -17,6 +17,7 @@
         <Button x:Name="btnTaskAll" Content="Task All" Grid.Row="0" HorizontalAlignment="Left" Margin="195,0,0,80" VerticalAlignment="Bottom" Click="btnTaskAll_Click"/>
         <Button x:Name="btnWhenFist" Content="When First" Grid.Row="0" HorizontalAlignment="Left" Margin="474,0,0,80" VerticalAlignment="Bottom" Click="btnWhenFist_Click"/>
         <Button x:Name="btnWhenAll" Content="When All" Grid.Row="0" HorizontalAlignment="Left" Margin="378,0,0,80" VerticalAlignment="Bottom" Click="btnWhenAll_Click"/>
+        <Button x:Name="btnWhenAllProgress" Content="When All Progress" Grid.Row="0" HorizontalAlignment="Left" Margin="595,0,0,80" VerticalAlignment="Bottom" Click="btnWhenAllProgress_Click"/>
 
         <ScrollViewer HorizontalAlignment="Stretch" Grid.Row = "1" VerticalAlignment="Stretch" >
             <TextBlock x:Name="txtInfo" HorizontalAlignment="Stretch" Margin="0,0,0,2" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Stretch" FontSize="15"/>
