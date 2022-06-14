@@ -135,5 +135,53 @@ namespace WpfApp
             txtInfo.Text += $"{Environment.NewLine} elapsed milliseconds: {s.ElapsedMilliseconds}";
             Mouse.OverrideCursor = null;
         }
+
+        private async void btnWhenFist_Click(object sender, RoutedEventArgs e)
+        {
+            Mouse.OverrideCursor = Cursors.Wait;
+            Stopwatch s = Stopwatch.StartNew();
+            txtInfo.Text = "";
+
+            string url1 = "https://seznam.cz";
+            string url2 = "https://seznamzpravy.cz";
+            string url3 = "https://www.ictpro.cz/";
+
+            var t1 = Task.Run(() => WebLoad.LoadUrl(url1));
+            var t2 = Task.Run(() => WebLoad.LoadUrl(url2));
+            var t3 = Task.Run(() => WebLoad.LoadUrl(url3));
+
+            var firstDone = await Task.WhenAny(t1, t2, t3);
+
+
+            txtInfo.Text += $"doběhl první task, web lenght je {firstDone.Result}";
+
+            s.Stop();
+            txtInfo.Text += $"{Environment.NewLine} elapsed milliseconds: {s.ElapsedMilliseconds}";
+            Mouse.OverrideCursor = null;
+        }
+
+        private async void btnWhenAll_Click(object sender, RoutedEventArgs e)
+        {
+            Mouse.OverrideCursor = Cursors.Wait;
+            Stopwatch s = Stopwatch.StartNew();
+            txtInfo.Text = "";
+
+            string url1 = "https://seznam.cz";
+            string url2 = "https://seznamzpravy.cz";
+            string url3 = "https://www.ictpro.cz/";
+
+            var t1 = Task.Run(() => WebLoad.LoadUrl(url1));
+            var t2 = Task.Run(() => WebLoad.LoadUrl(url2));
+            var t3 = Task.Run(() => WebLoad.LoadUrl(url3));
+
+            int[] results = await Task.WhenAll(t1, t2, t3);
+
+
+            txtInfo.Text += $"tasky jsou hotové, jejich web lenght je {string.Join(",",results)}";
+
+            s.Stop();
+            txtInfo.Text += $"{Environment.NewLine} elapsed milliseconds: {s.ElapsedMilliseconds}";
+            Mouse.OverrideCursor = null;
+        }
     }
 }
