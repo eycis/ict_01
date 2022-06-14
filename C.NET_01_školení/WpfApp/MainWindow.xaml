@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
-        Title="Frekvenční analýza textu" Height="400" Width="600">
+        Title="Frekvenční analýza textu" Height="600" Width="700">
     <Grid Margin="0,0,10,-16">
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>

@@ -1,6 +1,7 @@
 ﻿using Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -29,23 +30,30 @@ namespace WpfApp
 
         private void btnLoadFiles_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
+
+            Stopwatch s = Stopwatch.StartNew();
+
+
             txtInfo.Text = "";
 
             var files = Directory.EnumerateFiles(@"C:\Users\marie\source\repos\NewRepo\C.NET_01_školení\BIG");
             foreach (var file in files)
             {
                 var result = FreqAnalysis.FreqAnalysisFromFile(file);
-<<<<<<< HEAD
+
                 txtInfo.Text += result.Source + Environment.NewLine;
 
                 foreach (var word in result.GetTop10())
                 {
                     txtInfo.Text += $"{word.Key}:{word.Value} {Environment.NewLine}";
                 }
-=======
-                txtInfo.Text += result.Source;
->>>>>>> 48e661afbed4f5ec8cb9b9cc39a0a9ff8835a422
+
             }
+            s.Stop();
+            txtInfo.Text += $"{Environment.NewLine} elapsed milliseconds: {s.ElapsedMilliseconds}";
+            Mouse.OverrideCursor = null;
+
         }
     }
 }

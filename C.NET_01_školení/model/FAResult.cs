@@ -17,14 +17,9 @@
         /// </summary>
         public Dictionary<string, int> Words { get; set; } = new Dictionary<string, int>();
 
-<<<<<<< HEAD
-        public Dictionary<string, int> GetTop10() 
-            =>Words.OrderByDescending(kv => kv.Value)
-            .Take(10).ToDictionary(kv => kv.Key, kv => kv.Value);
 
-=======
-        public Dictionary<string, int> GetTop10()=>(Dictionary<string,int>)Words.OrderByDescending(kv => kv.Value).Take(10);
->>>>>>> 48e661afbed4f5ec8cb9b9cc39a0a9ff8835a422
+        public Dictionary<string, int> GetTop10() => Words.OrderByDescending(kv => kv.Value).Take(10).ToDictionary(x => x.Key, x => x.Value);
+
 
         public override string ToString()
         {
