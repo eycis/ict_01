@@ -16,5 +16,5 @@ using var db = new People_context();
 //db.RemoveRange(db.Persons);
 //db.SaveChanges();
 
-Console.WriteLine(db.Contracts.Count());
+Console.WriteLine(db.Persons.Count());
 Console.WriteLine("ok");

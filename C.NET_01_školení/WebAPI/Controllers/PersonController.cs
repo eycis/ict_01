@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using model;
 
 namespace WebAPI.Controllers
@@ -8,18 +10,31 @@ namespace WebAPI.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-        [HttpGet("GetAll")]
-        
-        public List<Person> GetPeople()
+        private readonly People_context _db;
+        public PersonController(People_context db)
         {
-            var dataset = Data.Serialization.LoadFromXML(@"C:\Users\marie\source\repos\NewRepo\C.NET_01_školení\personal_dataset\dataset.xml");
-            return dataset;
+            _db = db;
         }
+
+        [HttpGet("GetAll")]
+        public IEnumerable<Person> GetPeople()
+        {
+            return _db.Persons.Include(x=>x.Contracts)
+                .Include(x=>x.HomeAddress);
+        }
+
         [HttpGet("ByEmail/{email}")]
         public Person GetbyEmail(string email)
-        { 
-            var dataset = Data.Serialization.LoadFromXML(@"C:\Users\marie\source\repos\NewRepo\C.NET_01_školení\personal_dataset\dataset.xml");
-            return dataset.Where(p => p.Email.ToLower() == email.ToLower()).FirstOrDefault();    
+        {
+            return _db.Persons.Include(x => x.Contracts)
+                .Include(x => x.HomeAddress)
+                .Where(p => p.Email.ToLower() == email.ToLower()).FirstOrDefault();    
+        }
+        [HttpGet("{id}")]
+        public Person GetbyId(int id)
+        {
+            return _db.Persons.Include(x => x.Contracts)
+                .Include(x => x.HomeAddress).FirstOrDefault(p => p.Id==id);
         }
     }
 }
