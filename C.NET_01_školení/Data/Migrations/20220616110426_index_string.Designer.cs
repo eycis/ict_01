@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(People_context))]
-    [Migration("20220615131827_init")]
-    partial class init
+    [Migration("20220616110426_index_string")]
+    partial class index_string
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,6 +45,23 @@ namespace Data.Migrations
                     b.ToTable("Addresses");
                 });
 
+            modelBuilder.Entity("model.Company", b =>
+                {
+                    b.Property<int>("ComId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ComId"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ComId");
+
+                    b.ToTable("Companies");
+                });
+
             modelBuilder.Entity("model.Contract", b =>
                 {
                     b.Property<int>("Id")
@@ -52,6 +69,9 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("CompanyComId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -72,6 +92,8 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompanyComId");
+
                     b.HasIndex("PersonId");
 
                     b.ToTable("Contracts");
@@ -90,20 +112,25 @@ namespace Data.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<int>("HomeAddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email");
 
                     b.HasIndex("HomeAddressId");
 
@@ -112,9 +139,15 @@ namespace Data.Migrations
 
             modelBuilder.Entity("model.Contract", b =>
                 {
+                    b.HasOne("model.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyComId");
+
                     b.HasOne("model.Person", null)
                         .WithMany("Contracts")
                         .HasForeignKey("PersonId");
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("model.Person", b =>

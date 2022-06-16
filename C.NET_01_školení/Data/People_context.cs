@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using model;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,12 @@ namespace Data
         {
             get; set;
         }
+        public DbSet<Company> Companies { get; set; }
 
+        public override EntityEntry Add(object entity)
+        {
+            return base.Add(entity);
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=PeopleDb;Trusted_Connection=True;MultipleActiveResultSets=true");
