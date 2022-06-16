@@ -7,8 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\Add_person.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />
     <ProjectReference Include="..\model\model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Add_person.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Add_person.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Add_person.razor" />
   </ItemGroup>
 
 </Project>
